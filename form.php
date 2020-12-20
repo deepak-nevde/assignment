@@ -154,20 +154,20 @@ if(isset($_POST['save'])){
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12">Subject*</label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" name="subject" class="form-control" placeholder="Subject">
+                                <input type="text" id="issue-subject" name="subject" class="form-control" placeholder="Subject">
                               <?php if (isset($errorMsg)) { echo "<p class='message'>" .$errorMsg. "</p>" ;} ?>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                  <textarea class="form-control" name="description" rows="3" placeholder="Description"></textarea>
+                                  <textarea class="form-control" id="issue-description" name="description" rows="3" placeholder="Description"></textarea>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12">Status*</label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                  <select name="status" class="form-control">
+                                  <select name="status" id="issue-status-dd" class="form-control">
                                   <option value="">Select issue status</option>
                                   <?php $staus_result = mysqli_query($conn,"select * from issue_status;");
                                 // fetch data in array format
@@ -307,20 +307,20 @@ if(isset($_POST['save'])){
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Images*</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <input type="file" name="image" multiple class="form-control" placeholder="Images">
+                                    <input type="file" id="issue-image" name="image" multiple class="form-control" placeholder="Images">
                                 </div>
                               </div>
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12">Reviewer Comments</label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                  <textarea class="form-control" name="reviewer_comment " rows="3" placeholder="Reviwer Comments"></textarea>
+                                  <textarea id="rev_comment" class="form-control" name="reviewer_comment " rows="3" placeholder="Reviwer Comments"></textarea>
                               </div>
                             </div>
                             <div class="ln_solid"></div>
                             <div class="form-group">
                               <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                <button type="button" class="btn btn-primary">Cancel</button>
-                                <button type="reset" class="btn btn-primary">Reset</button>
+                                <button type="button" id="btn-cancel" class="btn btn-primary">Cancel</button>
++                                <button type="button" id="btn-reset" class="btn btn-primary" >Reset</button>
                                 <button type="submit" name="save" id="btn-save" value="submit" class="btn btn-success">Submit</button>
                               </div>
                             </div>
@@ -364,5 +364,19 @@ if(isset($_POST['save'])){
     <!-- Custom Theme Scripts -->
     <script src="assets/js/custom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>	
+    <script>
+        $('#btn-reset').click(function() {
+        $("#rev_comment, #issue-description" ).val(' ');
+        $("#duedate").val(''); 
+        $("#issue-subject").val(''); 
+        $("input[name=priority]").parent().removeClass("checked");
+        $("input[name=region]").removeAttr("checked");
+        $("input[name=region]").parent().removeClass("checked");
+        $('#status').prop('selectedIndex','0');
+        $('select').val('');
+        $('input:checkbox').removeAttr('checked');
+        $('input:checkbox').parent().removeClass('checked');
+        $("#issue-image").val(null);
+    }); </script>
   </body>
 </html>
