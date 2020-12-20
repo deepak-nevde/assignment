@@ -3,13 +3,12 @@ include "db_config.php";
 
 if(isset($_POST['save'])){
 
-  if(!empty($_FILES) && !empty($_FILES['name'])){
+  if(!empty($_FILES) && !empty($_FILES['image']['name'])){
     $check = getimagesize($_FILES["image"]["tmp_name"]);
     if($check !== false) {
       $target_dir = dirname(__FILE__)."/assets/uploads/";
       $target_file = $target_dir . basename($_FILES["image"]["name"]);
       $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
       if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
       echo "The file ". htmlspecialchars( basename( $_FILES["image"]["name"])). " has been uploaded.";
       } else {

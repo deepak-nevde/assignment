@@ -12,7 +12,7 @@ if(isset($_REQUEST['issue_id'])){
     inner JOIN target_versions as tar_ver on iss.target_version_id = tar_ver.id 
     where iss.is_active='1' AND iss.id= '$req_issue_id'" );
  
-  if(!empty($_FILES) && !empty($_FILES['name'])){
+ if(!empty($_FILES) && !empty($_FILES['image']['name'])){
     $check = getimagesize($_FILES["image"]["tmp_name"]);
     if($check !== false) {
       $target_dir = dirname(__FILE__)."/assets/uploads/";
